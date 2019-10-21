@@ -5,8 +5,6 @@ Servo rudder_servo;
 
 char data = 0;
 
-const int green_led(10), blue_led(11), red_led(12), yellow_led(13);
-
 void setup() {
   // setup pins to use the DC motor
   pinMode(enable, OUTPUT);
@@ -30,12 +28,6 @@ void straight();
 void loop() {
   // Enable the H-Bridge Motor
   digitalWrite(enable, HIGH);
-
-  // reset all LEDs
-  digitalWrite(green_led, LOW);
-  digitalWrite(blue_led, LOW);
-  digitalWrite(red_led, LOW);
-  digitalWrite(yellow_led, LOW);
 
   // Get and respond to user commands
   if (Serial.available() > 0) {
@@ -69,31 +61,19 @@ void loop() {
 void forward() {
   digitalWrite(dir_a, HIGH);
   digitalWrite(dir_b, LOW);
-
-  digitalWrite(green_led, HIGH);
-  digitalWrite(red_led, LOW);
 }
 
 void backward() {
   digitalWrite(dir_a, LOW);
   digitalWrite(dir_b, HIGH);
-
-  digitalWrite(red_led, HIGH);
-  digitalWrite(green_led, LOW);
 }
 
 void left() {
   rudder_servo.write(45);
-
-  digitalWrite(yellow_led, HIGH);
-  digitalWrite(blue_led, LOW);
 }
 
 void right(){
   rudder_servo.write(135);
-
-  digitalWrite(blue_led, HIGH);
-  digitalWrite(yellow_led, LOW);
 }
 
 void hold(){
@@ -101,16 +81,8 @@ void hold(){
   digitalWrite(dir_b, LOW);
 
   rudder_servo.write(90);
-
-  digitalWrite(green_led, LOW);
-  digitalWrite(blue_led, LOW);
-  digitalWrite(red_led, LOW);
-  digitalWrite(yellow_led, LOW);
 }
 
 void straight() {
   rudder_servo.write(90);
-
-  digitalWrite(yellow_led, LOW);
-  digitalWrite(blue_led, LOW);
 }
